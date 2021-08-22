@@ -6,7 +6,7 @@
 
 ## Installation
 
-First of all your machine must has [v compiler](https://vlang.io/). if it has vc, you can compile and run the game with `v run .`
+First of all your machine must has [v compiler](https://vlang.io/). If it has vc, you can compile and run the game with `v run .`
 
 ## Controllers
 
