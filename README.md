@@ -1,6 +1,8 @@
-![banner](./assets/banner.png)
-<h1 align="center">Minesweeper V</h1>
-<h2 align="center">Simple Minesweeper written in <a href="https://vlang.io">vlang</a> </h2>
+<div align="center">
+  <img src="./assets/banner.png" alt="banner" />
+  <h1 >Minesweeper V</h1>
+  <p><strong>Simple Minesweeper written in <a href="https://vlang.io">vlang</a></storng></p>
+</div>
 
 ## Installation
 
