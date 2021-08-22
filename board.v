@@ -86,29 +86,29 @@ fn (mut board Board) handle_open_cell(x int, y int) {
 		return
 	}
 
-	// for i in 0 .. 3 {
-	// 	adjacent_x := x + i - 1
+	for i in 0 .. 3 {
+		adjacent_x := x + i - 1
 
-	// 	if adjacent_x > board.cells.len || adjacent_x < 0 {
-	// 		continue
-	// 	}
+		if adjacent_x > board.cells.len || adjacent_x < 0 {
+			continue
+		}
 
-	// 	if y > 0 {
-	// 		board.handle_open_cell(adjacent_x, y - 1)
-	// 	}
+		if y > 0 {
+			board.handle_open_cell(adjacent_x, y - 1)
+		}
 
-	// 	if board.cells.len - 1 - y > 0 {
-	// 		board.handle_open_cell(adjacent_x, y + 1)
-	// 	}
-	// }
+		if board.cells.len - 1 - y > 0 {
+			board.handle_open_cell(adjacent_x, y + 1)
+		}
+	}
 
-	// if board.cells[y].len - x - 1 > 0 {
-	// 	board.handle_open_cell(x + 1, y)
-	// }
+	if board.cells[y].len - x - 1 > 0 {
+		board.handle_open_cell(x + 1, y)
+	}
 
-	// if x > 0 {
-	// 	board.handle_open_cell(x - 1, y)
-	// }
+	if x > 0 {
+		board.handle_open_cell(x - 1, y)
+	}
 }
 
 fn (mut board Board) check_win() bool {
