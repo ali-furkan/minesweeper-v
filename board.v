@@ -12,16 +12,16 @@ struct Board {
 mut:
 	cells      [cell_len][cell_len]int
 	cells_mask [cell_len][cell_len]bool
-	flags 		[]Pos
-	checks		int
+	flags      []Pos
+	checks     int
 	mines      int
-	end_time 	int
+	end_time   int
 	init_time  time.Time
 }
 
 fn new_board() &Board {
 	mut board := &Board{}
-	
+
 	board.init_time = time.now()
 	board.gen_map(cell_len, num_mines)
 

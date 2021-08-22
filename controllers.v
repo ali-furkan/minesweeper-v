@@ -144,7 +144,7 @@ fn (mut app App) handle_touch_cell() {
 			if app.is_pressed_box(app.touch.start.pos, cell_start_point, tile_size, tile_size) {
 				match app.game_state {
 					.flag {
-						checks << Pos {
+						checks << Pos{
 							x: x
 							y: y
 						}
