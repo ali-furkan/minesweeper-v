@@ -6,7 +6,7 @@
 
 ## Installation
 
-You can download it from the [release page](./releases) or run it on your pc with `v -autofree run .`
+First of all your machine must has [v compiler](https://vlang.io/). if it has vc, you can compile and run the game with `v run .`
 
 ## Controllers
 
