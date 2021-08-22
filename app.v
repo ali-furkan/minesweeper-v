@@ -127,7 +127,7 @@ fn (mut app App) draw_tiles() {
 			app.gg.draw_rounded_rect(tile_x_start, tile_y_start, t_size, t_size, tile_size / 8,
 				color)
 
-			if is_visible || has_flag  {
+			if is_visible || has_flag {
 				tile_text_format := app.ui.get_text_format('tile', if has_flag { -2 } else { cell })
 
 				tile_text_x_start := tile_x_start + tile_size * 2 / 5

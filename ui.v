@@ -24,7 +24,7 @@ struct Theme {
 	tile_close_color gx.Color
 	tile_colors      []gx.Color
 	text_color       gx.Color
-	flag_color		 gx.Color
+	flag_color       gx.Color
 }
 
 fn (ui UI) get_text_format(t string, val int) gx.TextCfg {

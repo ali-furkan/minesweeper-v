@@ -112,5 +112,6 @@ fn (mut board Board) handle_open_cell(x int, y int) {
 }
 
 fn (mut board Board) check_win() bool {
-	return board.flags.len == board.mines && board.cells.len * board.cells.len - board.checks == board.mines
+	return board.flags.len == board.mines
+		&& board.cells.len * board.cells.len - board.checks == board.mines
 }
