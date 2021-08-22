@@ -46,6 +46,7 @@ fn (mut app App) new_game() {
 
 fn (mut app App) end_game(state AppState) {
 	app.app_state = .over
+	app.board.end_time = time.now()
 }
 
 fn (mut app App) draw() {
@@ -69,7 +70,7 @@ fn (mut app App) draw_header() {
 	text_cfg := app.ui.get_text_format('header', 0)
 	header_y_pos := app.ui.y_padding - app.ui.header_size / 2
 
-	now := time.now()
+	now := if app.app_state != .play { app.board.end_time } else { time.now() }
 	time := (now - app.board.init_time) / time.second
 	mode_name := if app.game_state == GameState.flag { 'flag' } else { 'space' }
 

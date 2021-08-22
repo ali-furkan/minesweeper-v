@@ -15,7 +15,7 @@ mut:
 	flags      []Pos
 	checks     int
 	mines      int
-	end_time   int
+	end_time   time.Time
 	init_time  time.Time
 }
 
@@ -81,7 +81,7 @@ fn (mut board Board) handle_open_cell(x int, y int) {
 		return
 	}
 	board.cells_mask[y][x] = true
-	checks++
+	board.checks++
 	if board.cells[y][x] != 0 {
 		return
 	}
@@ -112,5 +112,5 @@ fn (mut board Board) handle_open_cell(x int, y int) {
 }
 
 fn (mut board Board) check_win() bool {
-	return board.flags.len == mines && board.cells.len * board.cells.len - checks == mines
+	return board.flags.len == board.mines && board.cells.len * board.cells.len - board.checks == board.mines
 }
