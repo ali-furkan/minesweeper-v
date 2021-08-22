@@ -150,6 +150,10 @@ fn (mut app App) handle_touch_cell() {
 						}
 					}
 					.space {
+						if app.board.flags.any(it.x == x && it.y == y) {
+							return
+						}
+
 						if app.board.cells[y][x] == -1 {
 							app.end_game(AppState.over)
 						} else {

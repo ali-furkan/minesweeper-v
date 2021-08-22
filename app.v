@@ -110,7 +110,8 @@ fn (mut app App) draw_tiles() {
 	for y, row in app.board.cells {
 		for x, cell in row {
 			// Arguments values
-			tile_text := app.ui.get_tile_text(cell)
+			has_flag := app.board.flags.any(it.x == x && it.y == y)
+			tile_text := app.ui.get_tile_text(if has_flag { -2 } else { cell })
 			is_visible := app.board.cells_mask[y][x]
 			color := if is_visible {
 				app.ui.theme.tile_open_color
@@ -126,8 +127,8 @@ fn (mut app App) draw_tiles() {
 			app.gg.draw_rounded_rect(tile_x_start, tile_y_start, t_size, t_size, tile_size / 8,
 				color)
 
-			if is_visible {
-				tile_text_format := app.ui.get_text_format('tile', cell)
+			if is_visible || has_flag  {
+				tile_text_format := app.ui.get_text_format('tile', if has_flag { -2 } else { cell })
 
 				tile_text_x_start := tile_x_start + tile_size * 2 / 5
 				tile_text_y_start := tile_y_start + tile_size / 8
