@@ -1,14 +1,15 @@
 <div align="center">
   <img src="./assets/banner.png" alt="banner" />
-  <h1 >Minesweeper V</h1>
-  <p><strong>Simple Minesweeper written in <a href="https://vlang.io">vlang</a></storng></p>
+  <h3>Minesweeper V</h3>
+  <p>Simple Minesweeper game written in <a href="https://vlang.io">vlang</a></p>
 </div>
 
-## Installation
+## 📩 Installation
 
-First of all your machine must has [v compiler](https://vlang.io/). If it has vc, you can compile and run the game with `v run .`
+- Make sure to have [V compiler](https://vlang.io/) installed in your machine.
+- You can compile and run the game using `v run .`
 
-## Controllers
+## ⚽ Controls
 
 |Control        |Description        |
 |---------------|-------------------|
@@ -16,5 +17,5 @@ First of all your machine must has [v compiler](https://vlang.io/). If it has vc
 |R-key          |Restart the game   |
 |Mouse Button 1 |Click the cell     |
 
-## License
-This repository [MIT Licensed](./LICENSE)
+## 📄 License
+This repository is licensed under the [MIT License](./LICENSE)
