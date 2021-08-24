@@ -11,11 +11,12 @@
 
 ## ⚽ Controls
 
-|Control        |Description        |
-|---------------|-------------------|
-|Q-key          |Change click mode  |
-|R-key          |Restart the game   |
-|Mouse Button 1 |Click the cell     |
+|Control        |Description              |
+|---------------|-------------------------|
+|Q-key          |Change right-click mode  |
+|R-key          |Restart the game         |
+|Mouse Button 1 |Click the cell           |
+|Mouse Button 2 |Mark mine                |
 
 ## 📄 License
 This repository is licensed under the [MIT License](./LICENSE)

@@ -80,19 +80,14 @@ fn on_event(e &gg.Event, mut app App) {
 				}
 				time: time.now()
 			}
-			app.handle_touch()
+			app.handle_touch(e)
 		}
 		else {}
 	}
 }
 
 fn (mut app App) handle_restart() {
-	match app.app_state {
-		.over, .victory {
-			app.new_game()
-		}
-		else {}
-	}
+	app.new_game()
 }
 
 fn (mut app App) handle_click_mode() {
@@ -104,7 +99,7 @@ fn (mut app App) handle_click_mode() {
 	}
 }
 
-fn (mut app App) handle_touch() {
+fn (mut app App) handle_touch(e &gg.Event) {
 	len_x := math.abs(app.touch.start.pos.x - app.touch.end.pos.x)
 	len_y := math.abs(app.touch.start.pos.y - app.touch.end.pos.y)
 
@@ -113,7 +108,7 @@ fn (mut app App) handle_touch() {
 	if math.sqrt(len_x * len_x + len_y * len_y) <= app.ui.tile_size && press_duration < 750 {
 		match app.app_state {
 			.play {
-				app.handle_touch_cell()
+				app.handle_touch_cell(e)
 			}
 			.over, .victory {
 				app.handle_restart()
@@ -122,7 +117,7 @@ fn (mut app App) handle_touch() {
 	}
 }
 
-fn (mut app App) handle_touch_cell() {
+fn (mut app App) handle_touch_cell(e &gg.Event) {
 	xstart := app.ui.x_padding + app.ui.border_size
 	ystart := app.ui.y_padding + app.ui.border_size
 
@@ -142,24 +137,30 @@ fn (mut app App) handle_touch_cell() {
 			}
 
 			if app.is_pressed_box(app.touch.start.pos, cell_start_point, tile_size, tile_size) {
-				match app.game_state {
-					.flag {
-						app.board.flags << Pos{
-							x: x
-							y: y
-						}
+				// Flag Mode
+				if app.game_state == .flag || e.mouse_button == .right {
+					if app.board.flags.len == app.board.mines {
+						return
 					}
-					.space {
-						if app.board.flags.any(it.x == x && it.y == y) {
+					for i, flag in app.board.flags {
+						if flag.x == x && flag.y == y {
+							app.board.flags.delete(i)
 							return
 						}
-
-						if app.board.cells[y][x] == -1 {
-							app.end_game(AppState.over)
-						} else {
-							app.board.handle_open_cell(x, y)
-						}
 					}
+					app.board.flags << Pos{x,y}
+				}
+				// Space Mode
+				if app.game_state == .space && e.mouse_button == .left {
+					if app.board.flags.any(it.x == x && it.y == y) {
+						return
+					}
+
+					if app.board.cells[y][x] == -1 {
+						app.end_game(AppState.over)
+						return
+					}
+					app.board.handle_open_cell(x, y)
 				}
 
 				if app.board.check_win() {
