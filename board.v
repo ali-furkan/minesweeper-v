@@ -33,8 +33,8 @@ fn (mut board Board) gen_map(cells int, num_mines int) {
 
 	mut i := 0
 	for i < num_mines {
-		mine_x := rand.intn(cells)
-		mine_y := rand.intn(cells)
+		mine_x := rand.intn(cells - 1)
+		mine_y := rand.intn(cells - 1)
 
 		if board.cells[mine_y][mine_x] == -1 {
 			continue
@@ -51,7 +51,7 @@ fn (mut board Board) set_mine_adjacent(x int, y int) {
 	// If there's a row above/below the mine, add one to adjacent cells that above/below the mine
 	for i in 0 .. 3 {
 		adjacent_x := x + (i - 1)
-		if adjacent_x > board.cells.len || adjacent_x < 0 {
+		if adjacent_x > board.cells.len - 1 || adjacent_x < 0 {
 			continue
 		}
 
@@ -89,7 +89,7 @@ fn (mut board Board) handle_open_cell(x int, y int) {
 	for i in 0 .. 3 {
 		adjacent_x := x + i - 1
 
-		if adjacent_x > board.cells.len || adjacent_x < 0 {
+		if adjacent_x > board.cells.len - 1 || adjacent_x < 0 {
 			continue
 		}
 
