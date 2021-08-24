@@ -1,9 +1,10 @@
 module main
 
+import os
 import gx
 
-const (
-	theme                 = &Theme{
+// Theme
+const theme = &Theme{
 		bg_color: gx.rgb(32, 42, 54)
 		board_color: gx.rgb(10, 14, 16)
 		flag_color: gx.rgb(0, 255, 0)
@@ -19,7 +20,10 @@ const (
 			gx.rgb(127, 31, 0),
 		]
 		text_color: gx.rgb(255, 255, 255)
+		font: os.resource_abs_path("./assets/fonts/montserrat-regular.ttf")
 	}
+
+const (
 	window_title          = 'V Minesweeper'
 	default_window_width  = 544
 	default_window_height = 560

@@ -25,6 +25,7 @@ struct Theme {
 	tile_colors      []gx.Color
 	text_color       gx.Color
 	flag_color       gx.Color
+	font 			 string
 }
 
 fn (ui UI) get_text_format(t string, val int) gx.TextCfg {

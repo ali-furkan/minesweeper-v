@@ -1,11 +1,9 @@
 module main
 
-import os
 import gg
 
 fn main() {
 	mut app := &App{}
-	mut font_path := os.resource_abs_path(os.join_path('../', 'RobotoMono-Medium.ttf'))
 
 	app.gg = gg.new_context(
 		bg_color: app.ui.theme.bg_color
@@ -18,7 +16,7 @@ fn main() {
 		event_fn: on_event
 		init_fn: init
 		user_data: app
-		font_path: font_path
+		font_path: app.ui.theme.font
 	)
 
 	app.gg.run()
