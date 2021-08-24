@@ -5,7 +5,7 @@ import time
 
 const (
 	cell_len  = 12 // Board row/column length
-	num_mines = 1
+	num_mines = 12
 )
 
 struct Board {
