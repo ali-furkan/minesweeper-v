@@ -45,7 +45,7 @@ fn (mut app App) new_game() {
 }
 
 fn (mut app App) end_game(state AppState) {
-	app.app_state = .over
+	app.app_state = state
 	app.board.end_time = time.now()
 }
 

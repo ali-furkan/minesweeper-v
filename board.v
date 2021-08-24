@@ -5,7 +5,7 @@ import time
 
 const (
 	cell_len  = 12 // Board row/column length
-	num_mines = 12
+	num_mines = 1
 )
 
 struct Board {
@@ -94,20 +94,20 @@ fn (mut board Board) handle_open_cell(x int, y int) {
 		}
 
 		if y > 0 {
-			go board.handle_open_cell(adjacent_x, y - 1)
+			board.handle_open_cell(adjacent_x, y - 1)
 		}
 
 		if board.cells.len - 1 - y > 0 {
-			go board.handle_open_cell(adjacent_x, y + 1)
+			board.handle_open_cell(adjacent_x, y + 1)
 		}
 	}
 
 	if board.cells[y].len - x - 1 > 0 {
-		go board.handle_open_cell(x + 1, y)
+		board.handle_open_cell(x + 1, y)
 	}
 
 	if x > 0 {
-		go board.handle_open_cell(x - 1, y)
+		board.handle_open_cell(x - 1, y)
 	}
 }
 
