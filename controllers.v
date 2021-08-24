@@ -139,14 +139,14 @@ fn (mut app App) handle_touch_cell(e &gg.Event) {
 			if app.is_pressed_box(app.touch.start.pos, cell_start_point, tile_size, tile_size) {
 				// Flag Mode
 				if app.game_state == .flag || e.mouse_button == .right {
-					if app.board.flags.len == app.board.mines {
-						return
-					}
 					for i, flag in app.board.flags {
 						if flag.x == x && flag.y == y {
 							app.board.flags.delete(i)
 							return
 						}
+					}
+					if app.board.flags.len == app.board.mines {
+						return
 					}
 					app.board.flags << Pos{x,y}
 				}
