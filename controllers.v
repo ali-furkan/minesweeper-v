@@ -61,7 +61,7 @@ fn on_event(e &gg.Event, mut app App) {
 					time: time.now()
 				}
 			}
-			app.handle_touch()
+			app.handle_touch(e)
 		}
 		.mouse_down {
 			app.touch.start = Touch{
