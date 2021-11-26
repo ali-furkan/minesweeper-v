@@ -2,6 +2,8 @@
   <img src="./assets/banner.png" alt="banner" />
   <h3>Minesweeper V</h3>
   <p>Simple Minesweeper game written in <a href="https://vlang.io">vlang</a></p>
+  
+  [![Mentioned in Awesome V](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/vlang/awesome-v#games)
 </div>
 
 ## 📩 Installation
