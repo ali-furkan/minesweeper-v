@@ -3,7 +3,6 @@ module main
 import gg
 import time
 import math
-import math.mathutil as mu
 
 enum AppState {
 	play
@@ -22,7 +21,7 @@ mut:
 	ui         UI
 	app_state  AppState  = .play
 	game_state GameState = .space
-	board      &Board    = 0
+	board      &Board 	 = 0
 	touch      TouchInfo
 }
 
@@ -103,7 +102,7 @@ fn (mut app App) draw_tiles() {
 	border_size := tile_size / 5
 
 	// Draw Board
-	app.gg.draw_rounded_rect(xstart - tile_size / 2, ystart - tile_size / 2, bsize, bsize,
+	app.gg.draw_rounded_rect_filled(xstart - tile_size / 2, ystart - tile_size / 2, bsize, bsize,
 		bsize / 24, app.ui.theme.board_color)
 
 	// Draw Tiles
@@ -124,7 +123,7 @@ fn (mut app App) draw_tiles() {
 			tile_y_start := ystart + tile_size / 10 + y * tile_size
 			t_size := tile_size - border_size
 
-			app.gg.draw_rounded_rect(tile_x_start, tile_y_start, t_size, t_size, tile_size / 8,
+			app.gg.draw_rounded_rect_filled(tile_x_start, tile_y_start, t_size, t_size, tile_size / 8,
 				color)
 
 			if is_visible || has_flag {
@@ -166,7 +165,7 @@ fn (mut app App) resize() {
 	window_size := gg.window_size()
 	w := window_size.width
 	h := window_size.height
-	min_edge := f32(mu.min(w, h))
+	min_edge := f32(math.min(w, h))
 
 	app.ui.window_width = w
 	app.ui.window_height = h
