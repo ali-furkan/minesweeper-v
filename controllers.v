@@ -148,7 +148,7 @@ fn (mut app App) handle_touch_cell(e &gg.Event) {
 					if app.board.flags.len == app.board.mines {
 						return
 					}
-					app.board.flags << Pos{x,y}
+					app.board.flags << Pos{x, y}
 				}
 				// Space Mode
 				if app.game_state == .space && e.mouse_button == .left {
