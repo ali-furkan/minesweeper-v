@@ -17,11 +17,11 @@ enum GameState {
 
 struct App {
 mut:
-	gg         &gg.Context = 0
+	gg         &gg.Context
 	ui         UI
 	app_state  AppState  = .play
 	game_state GameState = .space
-	board      &Board 	 = 0
+	board      &Board    
 	touch      TouchInfo
 }
 
@@ -70,17 +70,17 @@ fn (mut app App) draw_header() {
 	header_y_pos := app.ui.y_padding - app.ui.header_size / 2
 
 	now := if app.app_state != .play { app.board.end_time } else { time.now() }
-	time := (now - app.board.init_time) / time.second
+	time_var := (now - app.board.init_time) / time.second
 	mode_name := if app.game_state == GameState.flag { 'flag' } else { 'space' }
 
 	// Timer
-	app.gg.draw_text(app.ui.x_padding + app.ui.border_size, header_y_pos, 'Time: $time',
+	app.gg.draw_text(app.ui.x_padding + app.ui.border_size, header_y_pos, 'Time: ${time_var}',
 		text_cfg)
 	// Click Mode
-	app.gg.draw_text(app.ui.x_padding + app.ui.board_size * 2 / 5, header_y_pos, 'Mode: $mode_name',
+	app.gg.draw_text(app.ui.x_padding + app.ui.board_size * 2 / 5, header_y_pos, 'Mode: ${mode_name}',
 		text_cfg)
 	// Points
-	app.gg.draw_text(app.ui.x_padding + app.ui.board_size * 4 / 5, header_y_pos, 'Mines: $app.board.flags.len/$app.board.mines',
+	app.gg.draw_text(app.ui.x_padding + app.ui.board_size * 4 / 5, header_y_pos, 'Mines: ${app.board.flags.len}/${app.board.mines}',
 		text_cfg)
 }
 
@@ -102,8 +102,8 @@ fn (mut app App) draw_tiles() {
 	border_size := tile_size / 5
 
 	// Draw Board
-	app.gg.draw_rounded_rect_filled(xstart - tile_size / 2, ystart - tile_size / 2, bsize, bsize,
-		bsize / 24, app.ui.theme.board_color)
+	app.gg.draw_rounded_rect_filled(xstart - tile_size / 2, ystart - tile_size / 2, bsize,
+		bsize, bsize / 24, app.ui.theme.board_color)
 
 	// Draw Tiles
 	for y, row in app.board.cells {
@@ -123,8 +123,8 @@ fn (mut app App) draw_tiles() {
 			tile_y_start := ystart + tile_size / 10 + y * tile_size
 			t_size := tile_size - border_size
 
-			app.gg.draw_rounded_rect_filled(tile_x_start, tile_y_start, t_size, t_size, tile_size / 8,
-				color)
+			app.gg.draw_rounded_rect_filled(tile_x_start, tile_y_start, t_size, t_size,
+				tile_size / 8, color)
 
 			if is_visible || has_flag {
 				tile_text_format := app.ui.get_text_format('tile', if has_flag { -2 } else { cell })

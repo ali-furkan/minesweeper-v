@@ -25,7 +25,7 @@ struct Theme {
 	tile_colors      []gx.Color
 	text_color       gx.Color
 	flag_color       gx.Color
-	font 			 string
+	font             string
 }
 
 fn (ui UI) get_text_format(t string, val int) gx.TextCfg {
@@ -75,6 +75,6 @@ fn (ui UI) get_tile_text(val int) string {
 		-2 { 'f' }
 		-1 { 'X' }
 		0 { '' }
-		else { '$val' }
+		else { '${val}' }
 	}
 }

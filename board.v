@@ -33,8 +33,8 @@ fn (mut board Board) gen_map(cells int, num_mines int) {
 
 	mut i := 0
 	for i < num_mines {
-		mine_x := rand.intn(cells - 1) or {0}
-		mine_y := rand.intn(cells - 1) or {0}
+		mine_x := rand.intn(cells - 1) or { 0 }
+		mine_y := rand.intn(cells - 1) or { 0 }
 
 		if board.cells[mine_y][mine_x] == -1 {
 			continue
@@ -42,7 +42,7 @@ fn (mut board Board) gen_map(cells int, num_mines int) {
 
 		board.cells[mine_y][mine_x] = -1
 
-		go board.set_mine_adjacent(mine_x, mine_y)
+		spawn board.set_mine_adjacent(mine_x, mine_y)
 		i++
 	}
 }
