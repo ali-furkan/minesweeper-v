@@ -1,6 +1,7 @@
 module main
 
 import gx
+import gg
 
 struct UI {
 mut:
@@ -14,7 +15,9 @@ mut:
 	window_height int
 	x_padding     int
 	y_padding     int
-	theme         &Theme = theme
+	mine_img      gg.Image
+	flag_img      gg.Image
+	theme         &Theme = default_theme
 }
 
 struct Theme {
@@ -26,10 +29,23 @@ struct Theme {
 	text_color       gx.Color
 	flag_color       gx.Color
 	font             string
+	mine_img         string
+	flag_img         string
 }
 
-fn (ui UI) get_text_format(t string, val int) gx.TextCfg {
-	return match t {
+enum TextFormat {
+	header
+	tile
+	title
+}
+
+fn (mut ui UI) init_img(app_gg &gg.Context) ! {
+	ui.mine_img = app_gg.create_image(ui.theme.mine_img)!
+	ui.flag_img = app_gg.create_image(ui.theme.flag_img)!
+}
+
+fn (ui UI) get_text_format(f string, val int) gx.TextCfg {
+	return match f {
 		'header' {
 			gx.TextCfg{
 				color: ui.theme.text_color

@@ -3,6 +3,7 @@ module main
 import gg
 import time
 import math
+import os
 
 enum AppState {
 	play
@@ -21,16 +22,16 @@ mut:
 	ui         UI
 	app_state  AppState  = .play
 	game_state GameState = .space
-	board      &Board    
+	board      &Board
 	touch      TouchInfo
 }
 
 fn new_app() &App {
 	mut app := &App{
-		board: &Board{},
+		board: &Board{}
 		gg: &gg.Context{}
 	}
-	
+
 	app.gg = gg.new_context(
 		width: default_window_width
 		height: default_window_height
@@ -45,7 +46,7 @@ fn new_app() &App {
 		font_path: app.ui.theme.font
 	)
 
-	return app 
+	return app
 }
 
 fn init(mut app App) {
@@ -61,6 +62,7 @@ fn frame(mut app App) {
 
 fn (mut app App) new_game() {
 	app.board = new_board()
+	app.ui.init_img(app.gg) or { panic(err) }
 
 	app.app_state = .play
 	app.game_state = .space
@@ -155,7 +157,19 @@ fn (mut app App) draw_tiles() {
 				tile_text_x_start := tile_x_start + tile_size * 2 / 5
 				tile_text_y_start := tile_y_start + tile_size / 8
 
-				app.gg.draw_text(tile_text_x_start, tile_text_y_start, tile_text, tile_text_format)
+				tile_img_x_start := tile_x_start + tile_size * 1 / 5
+				tile_img_y_start := tile_y_start + tile_size * 1 / 5
+
+				if cell == -1 {
+					app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
+						tile_size * 2 / 5, app.ui.mine_img)
+				} else if has_flag {
+					app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
+						tile_size * 2 / 5, app.ui.flag_img)
+				} else {
+					app.gg.draw_text(tile_text_x_start, tile_text_y_start, tile_text,
+						tile_text_format)
+				}
 			}
 		}
 	}

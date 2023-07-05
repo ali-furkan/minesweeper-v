@@ -38,7 +38,8 @@ fn (mut board Board) gen_map(clicked_cell Pos) {
 		mine_x := rand.intn(board.cells.len - 1) or { 0 }
 		mine_y := rand.intn(board.cells.len - 1) or { 0 }
 
-		if board.cells[mine_y][mine_x] == -1 || (mine_x == clicked_cell.x && mine_y == clicked_cell.y) {
+		if board.cells[mine_y][mine_x] == -1
+			|| (mine_x == clicked_cell.x && mine_y == clicked_cell.y) {
 			continue
 		}
 
