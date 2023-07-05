@@ -115,10 +115,11 @@ fn (mut app App) draw_header() {
 
 fn (mut app App) draw_end_page(title string, description string) {
 	padding_y := (app.ui.window_height - app.ui.font_size * 12) / 2
+	padding_x := app.ui.window_width / 2
 
-	app.gg.draw_text(app.ui.x_padding, padding_y, title, app.ui.get_text_format('title',
+	app.gg.draw_text(padding_x, padding_y, title, app.ui.get_text_format('title',
 		0))
-	app.gg.draw_text(app.ui.x_padding, padding_y + app.ui.font_size * 4, description,
+	app.gg.draw_text(padding_x, padding_y + app.ui.font_size * 4, description,
 		app.ui.get_text_format('title', 0))
 }
 
@@ -143,7 +144,11 @@ fn (mut app App) draw_tiles() {
 			tile_text := app.ui.get_tile_text(tile_point)
 			is_visible := app.board.cells_mask[y][x]
 			color := if is_visible {
-				app.ui.theme.tile_open_color
+				if app.app_state == .over && tile_point == -1 {
+					app.ui.theme.tile_gameover_mine_color
+				} else {
+					app.ui.theme.tile_open_color
+				}
 			} else {
 				app.ui.theme.tile_close_color
 			}

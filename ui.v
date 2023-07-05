@@ -24,6 +24,7 @@ struct Theme {
 	bg_color         gx.Color
 	board_color      gx.Color
 	tile_open_color  gx.Color
+	tile_gameover_mine_color gx.Color
 	tile_close_color gx.Color
 	tile_colors      []gx.Color
 	text_color       gx.Color
@@ -63,7 +64,7 @@ fn (ui UI) get_text_format(f string, val int) gx.TextCfg {
 		'title' {
 			gx.TextCfg{
 				color: ui.theme.text_color
-				align: .left
+				align: .center
 				size: ui.font_size * 2
 			}
 		}
