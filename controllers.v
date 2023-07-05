@@ -137,6 +137,10 @@ fn (mut app App) handle_touch_cell(e &gg.Event) {
 			}
 
 			if app.is_pressed_box(app.touch.start.pos, cell_start_point, tile_size, tile_size) {
+				if !app.board.is_gen_map {
+					app.board.gen_map(Pos{x, y})
+				}
+
 				// Flag Mode
 				if app.game_state == .flag || e.mouse_button == .right {
 					for i, flag in app.board.flags {

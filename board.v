@@ -15,30 +15,30 @@ mut:
 	flags      []Pos
 	checks     int
 	mines      int
+	is_gen_map bool
 	end_time   time.Time
 	init_time  time.Time
 }
 
-// Create a new board
+// Create a new board without generating map
 fn new_board() &Board {
 	mut board := &Board{}
 
+	board.mines = num_mines
+	board.is_gen_map = false
 	board.init_time = time.now()
-	board.gen_map(cell_len, num_mines)
 
 	return board
 }
 
 // Generate mine on map of the board
-fn (mut board Board) gen_map(cells int, num_mines int) {
-	board.mines = num_mines
-
+fn (mut board Board) gen_map(clicked_cell Pos) {
 	mut i := 0
-	for i < num_mines {
-		mine_x := rand.intn(cells - 1) or { 0 }
-		mine_y := rand.intn(cells - 1) or { 0 }
+	for i < board.mines {
+		mine_x := rand.intn(board.cells.len - 1) or { 0 }
+		mine_y := rand.intn(board.cells.len - 1) or { 0 }
 
-		if board.cells[mine_y][mine_x] == -1 {
+		if board.cells[mine_y][mine_x] == -1 || (mine_x == clicked_cell.x && mine_y == clicked_cell.y) {
 			continue
 		}
 
@@ -47,6 +47,8 @@ fn (mut board Board) gen_map(cells int, num_mines int) {
 		spawn board.set_mine_adjacent(mine_x, mine_y)
 		i++
 	}
+
+	board.is_gen_map = true
 }
 
 // Set adjacent cells of the mine
