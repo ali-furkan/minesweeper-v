@@ -52,6 +52,14 @@ fn (mut board Board) gen_map(clicked_cell Pos) {
 	board.is_gen_map = true
 }
 
+fn (mut board Board) open_all_tiles() {
+	for mut rows in board.cells_mask {
+		for mut t in rows {
+			t = true
+		} 
+	}
+}
+
 // Set adjacent cells of the mine
 fn (mut board Board) set_mine_adjacent(x int, y int) {
 	// Increase one to adjacent cells where are located in the top or bottom row of the mine

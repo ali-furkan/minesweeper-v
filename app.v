@@ -1,9 +1,9 @@
 module main
 
 import gg
+import gx
 import time
 import math
-import os
 
 enum AppState {
 	play
@@ -70,23 +70,25 @@ fn (mut app App) new_game() {
 
 fn (mut app App) end_game(state AppState) {
 	app.app_state = state
+
+	if app.app_state == .over {
+		app.board.open_all_tiles()
+	}
+
 	app.board.end_time = time.now()
 }
 
 fn (mut app App) draw() {
+	app.draw_header()
+	app.draw_tiles()
 	match app.app_state {
-		.play {
-			app.draw_header()
-			app.draw_tiles()
-		}
 		.over {
-			app.draw_header()
 			app.draw_end_page('Game Over', 'Press `r` to restart')
 		}
 		.victory {
-			app.draw_header()
 			app.draw_end_page('Congrat!', 'Press `r` to restart')
 		}
+		else {}
 	}
 }
 
@@ -95,11 +97,13 @@ fn (mut app App) draw_header() {
 	header_y_pos := app.ui.y_padding - app.ui.header_size / 2
 
 	now := if app.app_state != .play { app.board.end_time } else { time.now() }
-	time_var := (now - app.board.init_time) / time.second
+	duration := time.Duration(now - app.board.init_time)
 	mode_name := if app.game_state == GameState.flag { 'flag' } else { 'space' }
 
+
+
 	// Timer
-	app.gg.draw_text(app.ui.x_padding + app.ui.border_size, header_y_pos, 'Time: ${time_var}',
+	app.gg.draw_text(app.ui.x_padding + app.ui.border_size, header_y_pos, 'Time: ${duration.str()} ',
 		text_cfg)
 	// Click Mode
 	app.gg.draw_text(app.ui.x_padding + app.ui.board_size * 2 / 5, header_y_pos, 'Mode: ${mode_name}',
@@ -135,7 +139,8 @@ fn (mut app App) draw_tiles() {
 		for x, cell in row {
 			// Arguments values
 			has_flag := app.board.flags.any(it.x == x && it.y == y)
-			tile_text := app.ui.get_tile_text(if has_flag { -2 } else { cell })
+			tile_point := if has_flag { -2 } else { cell }
+			tile_text := app.ui.get_tile_text(tile_point)
 			is_visible := app.board.cells_mask[y][x]
 			color := if is_visible {
 				app.ui.theme.tile_open_color
@@ -152,7 +157,7 @@ fn (mut app App) draw_tiles() {
 				tile_size / 8, color)
 
 			if is_visible || has_flag {
-				tile_text_format := app.ui.get_text_format('tile', if has_flag { -2 } else { cell })
+				tile_text_format := app.ui.get_text_format('tile', tile_point)
 
 				tile_text_x_start := tile_x_start + tile_size * 2 / 5
 				tile_text_y_start := tile_y_start + tile_size / 8
@@ -160,18 +165,25 @@ fn (mut app App) draw_tiles() {
 				tile_img_x_start := tile_x_start + tile_size * 1 / 5
 				tile_img_y_start := tile_y_start + tile_size * 1 / 5
 
-				if cell == -1 {
-					app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
-						tile_size * 2 / 5, app.ui.mine_img)
-				} else if has_flag {
+				if tile_point == -2 {
 					app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
 						tile_size * 2 / 5, app.ui.flag_img)
-				} else {
-					app.gg.draw_text(tile_text_x_start, tile_text_y_start, tile_text,
-						tile_text_format)
+					continue
 				}
+				if tile_point == -1 {
+					app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
+						tile_size * 2 / 5, app.ui.mine_img)
+					continue
+				}
+
+				app.gg.draw_text(tile_text_x_start, tile_text_y_start, tile_text, tile_text_format)
 			}
 		}
+	}
+
+	if app.app_state != .play {
+		app.gg.draw_square_filled(0, 0, f32(math.max(app.ui.window_width, app.ui.window_height)),
+			gx.rgba(32, 42, 54, 96))
 	}
 }
 
