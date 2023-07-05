@@ -4,6 +4,7 @@ import gg
 
 fn main() {
 	mut app := &App{gg: &gg.Context{}, board: new_board()}
+	
 	app.gg = gg.new_context(
 		bg_color: app.ui.theme.bg_color
 		width: default_window_width

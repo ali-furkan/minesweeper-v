@@ -4,8 +4,8 @@ import rand
 import time
 
 const (
-	cell_len  = 12 // Board row/column length
-	num_mines = 12
+	cell_len  = 12 // Row and Column length of the board
+	num_mines = 12 // Number of mines on the board
 )
 
 struct Board {
@@ -19,6 +19,7 @@ mut:
 	init_time  time.Time
 }
 
+// Create a new board
 fn new_board() &Board {
 	mut board := &Board{}
 
@@ -28,6 +29,7 @@ fn new_board() &Board {
 	return board
 }
 
+// Generate mine on map of the board
 fn (mut board Board) gen_map(cells int, num_mines int) {
 	board.mines = num_mines
 
@@ -47,41 +49,47 @@ fn (mut board Board) gen_map(cells int, num_mines int) {
 	}
 }
 
+// Set adjacent cells of the mine
 fn (mut board Board) set_mine_adjacent(x int, y int) {
-	// If there's a row above/below the mine, add one to adjacent cells that above/below the mine
+	// Increase one to adjacent cells where are located in the top or bottom row of the mine
 	for i in 0 .. 3 {
 		adjacent_x := x + (i - 1)
+		// If cell is out of the board, skip it
 		if adjacent_x > board.cells.len - 1 || adjacent_x < 0 {
 			continue
 		}
 
 		if y > 0 && board.cells[y - 1][adjacent_x] != -1 {
-			// add above row
+			// add to up row
 			board.cells[y - 1][adjacent_x]++
 		}
 		if board.cells.len - 1 - y > 0 && board.cells[y + 1][adjacent_x] != -1 {
-			// add below row
+			// add to down row
 			board.cells[y + 1][adjacent_x]++
 		}
 	}
 
-	// If there're cells to right or left the mine
+	// Increase one to adjacent cells where are located in the left or right of the mine
+
+	// Right cells
 	if board.cells[y].len - x - 1 > 0 && board.cells[y][x + 1] != -1 {
-		// right cell
 		board.cells[y][x + 1]++
 	}
+	// Left cells
 	if x > 0 && board.cells[y][x - 1] != -1 {
-		// left cell
 		board.cells[y][x - 1]++
 	}
 }
 
+// handle_open_cell opens the cell and if it is empty, opens adjacent cells
 fn (mut board Board) handle_open_cell(x int, y int) {
+	// If cell is opened, skip it
 	if board.cells_mask[y][x] {
 		return
 	}
 	board.cells_mask[y][x] = true
 	board.checks++
+
 	if board.cells[y][x] != 0 {
 		return
 	}
