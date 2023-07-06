@@ -100,8 +100,6 @@ fn (mut app App) draw_header() {
 	duration := time.Duration(now - app.board.init_time)
 	mode_name := if app.game_state == GameState.flag { 'flag' } else { 'space' }
 
-
-
 	// Timer
 	app.gg.draw_text(app.ui.x_padding + app.ui.border_size, header_y_pos, 'Time: ${duration.str()} ',
 		text_cfg)
@@ -117,12 +115,12 @@ fn (mut app App) draw_end_page(title string, description string) {
 	padding_y := (app.ui.window_height - app.ui.font_size * 12) / 2
 	padding_x := app.ui.window_width / 2
 
-	app.gg.draw_text(padding_x, padding_y, title, app.ui.get_text_format('title',
+	app.gg.draw_text(padding_x, padding_y, title, app.ui.get_text_format('title', 0))
+	app.gg.draw_text(padding_x, padding_y + app.ui.font_size * 4, description, app.ui.get_text_format('title',
 		0))
-	app.gg.draw_text(padding_x, padding_y + app.ui.font_size * 4, description,
-		app.ui.get_text_format('title', 0))
 }
 
+// TODO: improve performance
 fn (mut app App) draw_tiles() {
 	bsize := app.ui.board_size + app.ui.border_size
 	xstart := app.ui.x_padding + app.ui.border_size
@@ -162,26 +160,24 @@ fn (mut app App) draw_tiles() {
 				tile_size / 8, color)
 
 			if is_visible || has_flag {
-				tile_text_format := app.ui.get_text_format('tile', tile_point)
-
-				tile_text_x_start := tile_x_start + tile_size * 2 / 5
-				tile_text_y_start := tile_y_start + tile_size / 8
-
-				tile_img_x_start := tile_x_start + tile_size * 1 / 5
-				tile_img_y_start := tile_y_start + tile_size * 1 / 5
-
-				if tile_point == -2 {
-					app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
-						tile_size * 2 / 5, app.ui.flag_img)
-					continue
+				if tile_point < 0 {
+					tile_img_x_start := tile_x_start + tile_size * 1 / 5
+					tile_img_y_start := tile_y_start + tile_size * 1 / 5
+					if tile_point == -2 {
+						app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
+							tile_size * 2 / 5, app.ui.flag_img)
+					}
+					if tile_point == -1 {
+						app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
+							tile_size * 2 / 5, app.ui.mine_img)
+					}
+				} else {
+					tile_text_x_start := tile_x_start + tile_size * 2 / 5
+					tile_text_y_start := tile_y_start + tile_size / 8
+					tile_text_format := app.ui.get_text_format('tile', tile_point)
+					app.gg.draw_text(tile_text_x_start, tile_text_y_start, tile_text,
+						tile_text_format)
 				}
-				if tile_point == -1 {
-					app.gg.draw_image(tile_img_x_start, tile_img_y_start, tile_size * 2 / 5,
-						tile_size * 2 / 5, app.ui.mine_img)
-					continue
-				}
-
-				app.gg.draw_text(tile_text_x_start, tile_text_y_start, tile_text, tile_text_format)
 			}
 		}
 	}
