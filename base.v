@@ -9,7 +9,7 @@ const default_theme = &Theme{
 	board_color: gx.rgb(10, 14, 16)
 	tile_close_color: gx.rgb(32, 42, 54)
 	tile_open_color: gx.rgb(64, 81, 108)
-	tile_gameover_mine_color: gx.rgb(128,16,16)
+	tile_gameover_mine_color: gx.rgb(128, 16, 16)
 	tile_colors: [
 		gx.rgb(0, 0, 255),
 		gx.rgb(0, 255, 0),

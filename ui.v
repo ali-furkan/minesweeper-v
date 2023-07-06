@@ -21,17 +21,17 @@ mut:
 }
 
 struct Theme {
-	bg_color         gx.Color
-	board_color      gx.Color
-	tile_open_color  gx.Color
+	bg_color                 gx.Color
+	board_color              gx.Color
+	tile_open_color          gx.Color
 	tile_gameover_mine_color gx.Color
-	tile_close_color gx.Color
-	tile_colors      []gx.Color
-	text_color       gx.Color
-	flag_color       gx.Color
-	font             string
-	mine_img         string
-	flag_img         string
+	tile_close_color         gx.Color
+	tile_colors              []gx.Color
+	text_color               gx.Color
+	flag_color               gx.Color
+	font                     string
+	mine_img                 string
+	flag_img                 string
 }
 
 enum TextFormat {
