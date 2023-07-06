@@ -34,6 +34,7 @@ fn new_board() &Board {
 // Generate mine on map of the board
 fn (mut board Board) gen_map(clicked_cell Pos) {
 	mut i := 0
+	mut threads := []thread{}
 	for i < board.mines {
 		mine_x := rand.intn(board.cells.len - 1) or { 0 }
 		mine_y := rand.intn(board.cells.len - 1) or { 0 }
@@ -45,9 +46,11 @@ fn (mut board Board) gen_map(clicked_cell Pos) {
 
 		board.cells[mine_y][mine_x] = -1
 
-		spawn board.set_mine_adjacent(mine_x, mine_y)
+		threads << spawn board.set_mine_adjacent(mine_x, mine_y)
 		i++
 	}
+
+	threads.wait()
 
 	board.is_gen_map = true
 }
@@ -56,7 +59,7 @@ fn (mut board Board) open_all_tiles() {
 	for mut rows in board.cells_mask {
 		for mut t in rows {
 			t = true
-		} 
+		}
 	}
 }
 
