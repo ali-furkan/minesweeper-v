@@ -62,7 +62,7 @@ fn frame(mut app App) {
 
 fn (mut app App) new_game() {
 	app.board = new_board()
-	app.ui.init_img(app.gg) or { panic(err) }
+	app.ui.init_img(mut app.gg) or { panic(err) }
 
 	app.app_state = .play
 	app.game_state = .space

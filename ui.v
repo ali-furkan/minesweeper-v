@@ -40,7 +40,7 @@ enum TextFormat {
 	title
 }
 
-fn (mut ui UI) init_img(app_gg &gg.Context) ! {
+fn (mut ui UI) init_img(mut app_gg &gg.Context) ! {
 	ui.mine_img = app_gg.create_image(ui.theme.mine_img)!
 	ui.flag_img = app_gg.create_image(ui.theme.flag_img)!
 }
