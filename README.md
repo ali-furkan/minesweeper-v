@@ -20,5 +20,9 @@
 |Mouse Button 1 |Click the cell           |
 |Mouse Button 2 |Mark mine                |
 
+## 📷 Screenshots
+
+![Screenshot 1](./assets/screenshot.png)
+
 ## 📄 License
 This repository is licensed under the [MIT License](./LICENSE)
