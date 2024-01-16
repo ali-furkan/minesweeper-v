@@ -81,6 +81,13 @@ fn (mut app App) end_game(state AppState) {
 fn (mut app App) draw() {
 	app.draw_header()
 	app.draw_tiles()
+
+	// Draw blackout in the end of the game 
+	if app.app_state != .play {
+		app.gg.draw_square_filled(0, 0, f32(math.max(app.ui.window_width, app.ui.window_height)),
+			gx.rgba(0, 0, 0, 128))
+	}
+
 	match app.app_state {
 		.over {
 			app.draw_end_page('Game Over', 'Press `r` to restart')
@@ -180,11 +187,6 @@ fn (mut app App) draw_tiles() {
 				}
 			}
 		}
-	}
-
-	if app.app_state != .play {
-		app.gg.draw_square_filled(0, 0, f32(math.max(app.ui.window_width, app.ui.window_height)),
-			gx.rgba(32, 42, 54, 96))
 	}
 }
 
