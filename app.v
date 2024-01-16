@@ -97,11 +97,11 @@ fn (mut app App) draw_header() {
 	header_y_pos := app.ui.y_padding - app.ui.header_size / 2
 
 	now := if app.app_state != .play { app.board.end_time } else { time.now() }
-	duration := time.Duration(now - app.board.init_time)
+	duration := math.trunc((now - app.board.init_time).seconds())
 	mode_name := if app.game_state == GameState.flag { 'flag' } else { 'space' }
 
 	// Timer
-	app.gg.draw_text(app.ui.x_padding + app.ui.border_size, header_y_pos, 'Time: ${duration.str()} ',
+	app.gg.draw_text(app.ui.x_padding + app.ui.border_size, header_y_pos, 'Time: ${duration}s ',
 		text_cfg)
 	// Click Mode
 	app.gg.draw_text(app.ui.x_padding + app.ui.board_size * 2 / 5, header_y_pos, 'Mode: ${mode_name}',

@@ -51,7 +51,7 @@ fn (ui UI) get_text_format(f string, val int) gx.TextCfg {
 			gx.TextCfg{
 				color: ui.theme.text_color
 				align: .left
-				size: ui.font_size * 2
+				size: ui.font_size * 5 / 2
 			}
 		}
 		'tile' {
@@ -65,7 +65,7 @@ fn (ui UI) get_text_format(f string, val int) gx.TextCfg {
 			gx.TextCfg{
 				color: ui.theme.text_color
 				align: .center
-				size: ui.font_size * 2
+				size: ui.font_size * 3
 			}
 		}
 		else {

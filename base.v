@@ -20,7 +20,7 @@ const default_theme = &Theme{
 		gx.rgb(127, 31, 0),
 	]
 	text_color: gx.rgb(255, 255, 255)
-	font: os.resource_abs_path('./assets/fonts/montserrat-regular.ttf')
+	font: os.resource_abs_path('./assets/fonts/TitilliumWeb-Black.ttf')
 	mine_img: os.resource_abs_path('./assets/bomb.png')
 	flag_img: os.resource_abs_path('./assets/flag.png')
 }
