@@ -3,10 +3,9 @@ module main
 import rand
 import time
 
-const (
-	cell_len  = 12 // Row and Column length of the board
-	num_mines = 12 // Number of mines on the board
-)
+const cell_len = 12 // Row and Column length of the board
+
+const num_mines = 12 // Number of mines on the board
 
 struct Board {
 mut:
