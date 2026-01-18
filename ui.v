@@ -1,6 +1,5 @@
 module main
 
-import gx
 import gg
 
 struct UI {
@@ -21,14 +20,14 @@ mut:
 }
 
 struct Theme {
-	bg_color                 gx.Color
-	board_color              gx.Color
-	tile_open_color          gx.Color
-	tile_gameover_mine_color gx.Color
-	tile_close_color         gx.Color
-	tile_colors              []gx.Color
-	text_color               gx.Color
-	flag_color               gx.Color
+	bg_color                 gg.Color
+	board_color              gg.Color
+	tile_open_color          gg.Color
+	tile_gameover_mine_color gg.Color
+	tile_close_color         gg.Color
+	tile_colors              []gg.Color
+	text_color               gg.Color
+	flag_color               gg.Color
 	font                     string
 	mine_img                 string
 	flag_img                 string
@@ -40,45 +39,45 @@ enum TextFormat {
 	title
 }
 
-fn (mut ui UI) init_img(mut app_gg &gg.Context) ! {
+fn (mut ui UI) init_img(mut app_gg gg.Context) ! {
 	ui.mine_img = app_gg.create_image(ui.theme.mine_img)!
 	ui.flag_img = app_gg.create_image(ui.theme.flag_img)!
 }
 
-fn (ui UI) get_text_format(f string, val int) gx.TextCfg {
+fn (ui UI) get_text_format(f string, val int) gg.TextCfg {
 	return match f {
 		'header' {
-			gx.TextCfg{
+			gg.TextCfg{
 				color: ui.theme.text_color
 				align: .left
-				size: ui.font_size * 5 / 2
+				size:  ui.font_size * 5 / 2
 			}
 		}
 		'tile' {
-			gx.TextCfg{
+			gg.TextCfg{
 				color: ui.get_tile_color(val)
 				align: .center
-				size: ui.tile_size * 2 / 3
+				size:  ui.tile_size * 2 / 3
 			}
 		}
 		'title' {
-			gx.TextCfg{
+			gg.TextCfg{
 				color: ui.theme.text_color
 				align: .center
-				size: ui.font_size * 3
+				size:  ui.font_size * 3
 			}
 		}
 		else {
-			gx.TextCfg{
+			gg.TextCfg{
 				color: ui.theme.text_color
 				align: .left
-				size: ui.font_size * 4
+				size:  ui.font_size * 4
 			}
 		}
 	}
 }
 
-fn (ui UI) get_tile_color(val int) gx.Color {
+fn (ui UI) get_tile_color(val int) gg.Color {
 	return match val {
 		-2 { ui.theme.flag_color }
 		-1 { ui.theme.text_color }

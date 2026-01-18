@@ -42,7 +42,7 @@ fn on_event(e &gg.Event, mut app App) {
 			if e.num_touches > 0 {
 				t := e.touches[0]
 				app.touch.start = Touch{
-					pos: Pos{
+					pos:  Pos{
 						x: int(t.pos_x / app.gg.scale)
 						y: int(t.pos_y / app.gg.scale)
 					}
@@ -54,7 +54,7 @@ fn on_event(e &gg.Event, mut app App) {
 			if e.num_touches > 0 {
 				t := e.touches[0]
 				app.touch.end = Touch{
-					pos: Pos{
+					pos:  Pos{
 						x: int(t.pos_x / app.gg.scale)
 						y: int(t.pos_y / app.gg.scale)
 					}
@@ -65,7 +65,7 @@ fn on_event(e &gg.Event, mut app App) {
 		}
 		.mouse_down {
 			app.touch.start = Touch{
-				pos: Pos{
+				pos:  Pos{
 					x: int(e.mouse_x / app.gg.scale)
 					y: int(e.mouse_y / app.gg.scale)
 				}
@@ -74,7 +74,7 @@ fn on_event(e &gg.Event, mut app App) {
 		}
 		.mouse_up {
 			app.touch.end = Touch{
-				pos: Pos{
+				pos:  Pos{
 					x: int(e.mouse_x / app.gg.scale)
 					y: int(e.mouse_y / app.gg.scale)
 				}

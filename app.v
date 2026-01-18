@@ -1,7 +1,6 @@
 module main
 
 import gg
-import gx
 import time
 import math
 
@@ -29,21 +28,21 @@ mut:
 fn new_app() &App {
 	mut app := &App{
 		board: &Board{}
-		gg: &gg.Context{}
+		gg:    &gg.Context{}
 	}
 
 	app.gg = gg.new_context(
-		width: default_window_width
-		height: default_window_height
-		sample_count: 1
+		width:         default_window_width
+		height:        default_window_height
+		sample_count:  1
 		create_window: true
-		window_title: window_title
-		frame_fn: frame
-		event_fn: on_event
-		init_fn: init
-		user_data: app
-		bg_color: app.ui.theme.bg_color
-		font_path: app.ui.theme.font
+		window_title:  window_title
+		frame_fn:      frame
+		event_fn:      on_event
+		init_fn:       init
+		user_data:     app
+		bg_color:      app.ui.theme.bg_color
+		font_path:     app.ui.theme.font
 	)
 
 	return app
@@ -82,10 +81,10 @@ fn (mut app App) draw() {
 	app.draw_header()
 	app.draw_tiles()
 
-	// Draw blackout in the end of the game 
+	// Draw blackout in the end of the game
 	if app.app_state != .play {
 		app.gg.draw_square_filled(0, 0, f32(math.max(app.ui.window_width, app.ui.window_height)),
-			gx.rgba(0, 0, 0, 128))
+			gg.rgba(0, 0, 0, 128))
 	}
 
 	match app.app_state {
